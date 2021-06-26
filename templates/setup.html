@@ -1,0 +1,94 @@
+
+{% extends 'layout.html'%}
+{% load static %}
+{% block content %}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+
+<link rel="stylesheet" href="{% static "css/setup.css" %}?{% now "U" %}">
+<div class="overlay">
+    <!-- LOGN IN FORM by Omar Dsoky -->
+    <form method="POST"action = "" enctype="multipart/form-data">
+    {% csrf_token %}
+       <!--   con = Container  for items in the form-->
+       <div class="con">
+       <!--     Start  header Content  -->
+       <header class="head-form">
+          <h2>เข้าสู่ระบบครั้งแรก</h2>
+          <!--     A welcome message or an explanation of the login form -->
+          <p>กรุณากรอก รหัสนิสิตสิต และ อีเมล</p>
+       </header>
+       <!--     End  header Content  -->
+       <br>
+       <div class="field-set">
+        <span class="input-item">
+          <i class="fas fa-user"></i>
+       </span>
+        <input class="form-input" type="text" placeholder="username" id="username"  name="username" required><br>
+        <span class="input-item">
+          <i class="fa fa-key"></i>
+         </span>
+        <input class="form-input" type="password" placeholder="password" id="password1"  name="password1" required><br>
+        <span class="input-item">
+          <i class="fa fa-key"></i>
+         </span>
+        <input class="form-input" type="password" placeholder="password2" id="passsword2"  name="passsword2" required><br>
+
+        <label>ส่วนที่2</label>
+        {{form.as_p}}
+         
+    <!--      Show/hide password  -->
+              <span>
+     </span>
+ 
+ 
+         
+          <br>
+    <!--        buttons -->
+    <!--      button LogIn -->
+          <button class="log-in" type="submit"> ยืนยัน | Confirm </button>
+       </div>
+      
+
+         
+    <!--   End Conrainer  -->
+      </div>
+      
+      <!-- End Form -->
+    </form>
+    </div>
+    {%if messages %}
+          {%for m in messages %}
+              {%if mes%}
+                <script>
+                  Swal.fire({
+                    "title":"สำเร็จ!",
+                    "text":"{{m}}",
+                    "icon":"success"
+                  })
+                </script>
+
+              
+              
+              
+
+              
+              {%else%}
+
+
+
+              <script>
+                Swal.fire({
+                  "title":"พบหัญหา",
+                  "text":"{{m}}",
+                  "icon":"error"
+                })
+              </script>
+
+              {%endif%}
+
+
+          {%endfor%}
+          {%endif %}
+
+
+{% endblock %}

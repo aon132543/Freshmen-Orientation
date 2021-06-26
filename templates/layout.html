@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        h1 {font-family: 'Athiti', sans-serif;}
+        h2 {font-family: 'Athiti', sans-serif;}
+        p   {font-family: 'Athiti', sans-serif;}
+        a  {font-family: 'Athiti', sans-serif;}
+        th {font-family: 'Athiti', sans-serif;}
+        table {font-family: 'Athiti', sans-serif;}
+        h3 {font-family: 'Athiti', sans-serif;}
+        h4 {font-family: 'Athiti', sans-serif;}
+
+
+    </style>
+    <meta charset="UTF-8">
+    <title>CPE</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Athiti:wght@300&display=swap" rel="stylesheet">
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">CPE ปกส้ม</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="page1">เข้าสู่ระบบ <span class="sr-only">(current)</span><i class="fas fa-user-circle"></i></a>
+      </li>
+         <li class="nav-item active">
+        <a class="nav-link" href="page3">เข้าสู่ระบบครั้งแรก <span class="sr-only">(current)</span>  <i class="fas fa-sign-in-alt"></i></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="page2">ติดต่อผู้ดูแลระบบ  <i class="far fa-id-card"></i></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="page4">ลืมรหัสผ่าน  <i class="fas fa-unlock-alt"></i></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">สมุดปกส้ม</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+</body>
+
+<div class="container">
+      {% block  content %}
+
+        {% endblock %}
+</div>
+
+
+</div>
+
+
+</body>
+</html>

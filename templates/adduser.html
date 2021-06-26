@@ -1,0 +1,16 @@
+{% extends 'layout.html'   %}
+{% load crispy_forms_tags %}
+{% block content %}
+     <div class="container">
+        <h2 align="center"> กรอกลงทะเบียน สำหรับ ผู้ดูแลระบบ</h2>
+        <form method="post">
+        {{ form | crispy }}
+            {{ profile_form  | crispy }}
+            {% csrf_token %}
+        <input type="submit" class="btn btn-primary" value="Register">
+        </form>
+     </div>
+
+
+
+{% endblock %}

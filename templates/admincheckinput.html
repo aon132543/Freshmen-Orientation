@@ -1,0 +1,27 @@
+{% extends 'layout3.html'%}
+{% block content %}
+    <div class="container">
+
+    <h2 align="center">ระบบเช็คลายเซ็นต์</h2>
+        <h2 align="center">รักน้องจริง มึงห้ามทำร้ายน้อง ทางอ้อม </h2>
+        <h2 align="center">หน้าการใช้งานนี้ อันตรายมาก  </h2>
+    <h2 align="center">หน้าพวกนี้เป็นส่วนของ ADMIN ไม่ควรให้รหัส ที่เป็น ADMIN กับคนอื่น</h2>
+    <h2 align="center">ข้อมูลต่อไปนี้ เป็นข้อมูลส่วนตัวของน้อง</h2>
+        <h2 align="center">หากน้องคนไหน ถามว่า พี่สามารถเช็คให้หนูได้ไหม ว่าเพื่อน คนนี้ ได้ขอลายเซ็นคนนี้ไหม </h2>
+    <h2 align="center">ให้ตอบไปว่า พี่เช็คให้ไม่ได้ครับ ทำไม่เป็น ไม่รู้ครับ ไม่งั้นปัญหาจะตามมาทันที </h2>
+        <h2 align="center">รักน้องจริง มึงห้ามทำร้ายน้อง ทางอ้อม </h2>
+
+    <h2 align="center">ข้อมูลต่อไปนี้ เป็นข้อมูลส่วนตัวของน้องหากไม่ใช่เวลา ตรวจลายเซ็น ไม่ควรเข้า</h2>
+    <form action="admincheck" method="post">
+        {% csrf_token %}
+    <div class="form-group">
+   <label for ="" > กรุณากรอกรหัสนิสิต </label>
+   <input type="text" class="form-control" name="std">
+    <input type="submit" value="ยืนยัน" class="btn btn-primary">
+    </div>
+    </form>
+    </div>
+
+
+
+{% endblock %}

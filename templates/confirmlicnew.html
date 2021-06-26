@@ -1,0 +1,174 @@
+
+{% extends 'layoutnew.html' %}
+{% block content %}
+
+
+{% load like_filter %}
+
+{% block js %}
+<script>
+  function detail_id(std,cpenumber,nickname,profile_pic,displayname,edu){
+
+    
+Swal.fire({
+  title: 'รายละเอียดของ  '+displayname,
+  width: 600,
+  padding: '3em',
+  background: '#fff url(/images/trees.png)',
+  imageUrl: profile_pic,
+  backdrop: `
+    rgba(0,0,123,0.4)
+    left top
+    no-repeat
+  `,
+  html:
+    '<h3>ชื่อเล่น : ' +nickname+'</h3>'+
+    '<h3>ชั้นปี : ' +edu+'</h3>'+
+    '<h3>CPE : ' +cpenumber+'</h3>'+
+    '<h3>รหัสนิสิต : ' +std+'</h3>',
+})
+  }
+
+
+    function complete_license(id){
+
+    Swal.fire({
+      "title":"ยืนยันที่จะเซ็นใช่ไหม ?",
+      "text":"เซ็นแล้วไม่สามารถแก้ไขคืนได้นะ",
+      "icon":"question",
+      "showCancelButton":true,
+      "cancelButtonText":"ย้อนกลับ",
+      "confirmButtonText":"เซ็น"
+    })
+    .then(function (result){
+      if (result.isConfirmed){
+        window.location.href="confirmsend"+"/"+id
+      }
+    })
+
+  }
+
+
+</script>
+{% endblock %}
+<div class="tab">
+  คำขอลายเซ็น
+</div>
+<div class="container">
+  <div class="row">
+
+  {% for item in oders %}
+
+    <figure class="snip1336">
+      {% for tests in test %}
+        {% if tests.user_id == item.idcpesend %}
+        <img src="{{tests.user.userprofile.profile_bg_pic.url}}" />
+        {% endif %}
+      {% endfor %}
+      <figcaption>
+        {% for tests in test %}
+          {% if tests.user_id == item.idcpesend %}
+          <img src="{{tests.user.userprofile.profile_pic.url}}"
+            alt="profile-sample4" class="profile" />
+          {% endif %}
+        {% endfor %}
+
+        <h2>
+
+          {% for tests in test %}
+            {% if tests.user_id == item.idcpesend %}
+              {{ tests.displayname }}
+            {% endif %}
+          {% endfor %}
+
+        </h2>
+
+
+        <p>
+          {% for tests in test %}
+            {% if tests.user_id == item.idcpesend %}
+              <h2> CPE {{ tests.cpenumber }} </h2>
+            {% endif %}
+          {% endfor %}
+
+        </p>
+       
+                 
+
+
+         <!-----ปุ่ม LIKE---->
+         <div class="like">
+          <div class="btn-like">
+            {% for tests in test %}
+            {% if tests.user_id == item.idcpesend %}
+            
+            {%if item.idcpesend|is_like_filter:item.idcpeto %}
+
+            <div class="like-s">
+            <button onclick="window.location.href='like_d'+'/'+'{{item.idcpesend|get_oderid_like:item.idcpeto}}' " ><i class="fas fa-heart"></i>  x {{likes|like_filter:item.idcpeto}}</button>
+
+            
+            </div>
+            {%else %}
+            <button onclick="window.location.href='like_s'+'/'+'{{item.idcpesend|get_oderid_like:item.idcpeto}}'" ><i class="far fa-heart"></i>  x {{likes|like_filter:item.idcpeto}}</button>
+            {%endif %}
+         
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+
+
+
+        {% if item.status == False %}
+        <div class="btn-license">
+          <button onclick="complete_license({{item.id}})"> เซ็นให้</button>
+        </div>
+   
+        
+        {% for tests in test %}
+        {% if tests.user_id == item.idcpesend %}
+
+        <div class="btn-details">
+          <button
+            onclick="detail_id('{{tests.std}}','{{tests.cpenumber}}','{{tests.nickname}}','{{tests.profile_pic.url}}','{{tests.displayname}}','{{tests.edu}}')">รายละเอียด</button>
+        </div>
+        {% endif %}
+        {% endfor %}
+        <!===================>
+
+        {% endif %}
+      </figcaption>
+    </figure>
+
+
+
+    {% endfor %}
+  </div>
+  <nav aria-label="Page navigation example">
+    {% if oders.paginator.num_pages > 1 %}
+    <ul class="pagination">
+    {% for pagenumber in oders.paginator.page_range %}
+  
+        <li class="page-item
+        {% if oders.number == pagenumber %}
+              active
+  
+        {% endif %}
+        "><a class="page-link" href="?page={{ pagenumber }}">{{ pagenumber }}</a></li>
+          {% endfor %}
+    </ul>
+  
+  {% endif %}
+</div>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

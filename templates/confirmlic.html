@@ -1,0 +1,90 @@
+    {% extends 'layoutnew.html'   %}
+{% block content %}
+        <div class="container">
+          {% if user.is_authenticated %}
+              <p>
+              <div class="alert alert-primary" role="alert">
+                 สวัสดีจ้า {{ user.userprofile.nickname }} นี้คือคำขอลายเซ็นนะ <a href="#" class="alert-link"></a>.
+              </div>
+              <div class="alert alert-primary" role="alert">
+                 ID ของคุณคือ  {{ request.user.id }} <a href="#" class="alert-link"></a>.
+              </div>
+              </p>
+                <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col"align="center">คำสั่งที่</th>
+              <th scope="col"align="center">คำขอลายเซ็นต์จากID</th>
+                 <th scope="col"align="center">ชื่อ</th>
+                <th scope="col"align="center">เลขCPE</th>
+              <th scope="col"align="center">สถานะ</th>
+                <th scope="col"align="center">ให้/ไม่ให้</th>
+            </tr>
+          </thead>
+          <tbody>
+
+
+              {% for item in oders %}
+
+            <tr>
+              <th scope="row">{{ item.id }}</th>
+              <td><p>{{ item.idcpesend }}</p></td>
+              <td>
+                    {% for tests in test %}
+                              {% if tests.user_id == item.idcpesend %}
+                                 <p> {{ tests.nickname }} </p>
+                                 {% endif %}
+                             {% endfor %}
+              </td>
+
+            <td>
+                    {% for tests in test %}
+                              {% if tests.user_id == item.idcpesend %}
+                                 <p> CPE {{ tests.cpenumber }} </p>
+                                 {% endif %}
+                             {% endfor %}
+                    </td>
+
+
+              <td>{% if item.status == True %}
+                  <p align="center" ><span class="badge badge-pill badge-success">ได้ลายเซ็นแล้ว</span></p>
+                  {% else %}
+
+                  <p align="center"><span class="badge badge-pill badge-danger">ยังไม่ได้ลายเซ็น</span></p>
+              {% endif %}
+              </td>
+
+            <td>
+                {% if item.status == False %}
+                    <a href = "{% url 'confirmsend' item.id %}"button type="button" class="btn btn-primary">เซ็นให้ </abutton></a>
+                    {%endif %}
+            </td>
+
+            </tr>
+        {% endfor %}
+          </tbody>
+        </table>
+      <nav aria-label="Page navigation example">
+      {% if oders.paginator.num_pages > 1 %}
+      <ul class="pagination">
+      {% for pagenumber in oders.paginator.page_range %}
+
+          <li class="page-item
+          {% if oders.number == pagenumber %}
+                active
+
+          {% endif %}
+          "><a class="page-link" href="?page={{ pagenumber }}">{{ pagenumber }}</a></li>
+            {% endfor %}
+      </ul>
+
+
+          {% endif %}
+    </nav>
+            {% else %}
+        <h2>กรุณา เข้าสู่ระบบก่อน ก่อนครับ </h2>
+
+        {% endif %}
+
+    </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'layout2.html'   %}
+{% block content %}
+        <div class="container">
+
+            <form method="post" action="">
+                {% csrf_token %}
+                 <h2>คำเตือน</h2>
+                 <br>
+                <h5>น้องต้องการจะลบจริงๆใช่ไหม ? </h5>
+                <h5>{{ oder }}</h5>
+                <a href = "{% url 'removeoder' item.id %}" <button type="button" class="btn btn-primary">ลบจ้า </button></a>
+                <a href="/appsend"><div class = "btn btn-secondary">ไม่ลบ</div></a>
+
+            </form>
+        </div>
+{% endblock %}

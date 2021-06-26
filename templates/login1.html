@@ -1,0 +1,75 @@
+
+{% extends 'layout.html'%}
+{% load static %}
+{% block content %}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+<link rel="stylesheet" href="{% static "css/stylelogin.css" %}">
+<div class="overlay">
+    <!-- LOGN IN FORM by Omar Dsoky -->
+    <form method="POST">
+    {% csrf_token %}
+       <!--   con = Container  for items in the form-->
+       <div class="con">
+       <!--     Start  header Content  -->
+       <header class="head-form">
+          <h2>เข้าสู่ระบบครั้งแรก</h2>
+          <!--     A welcome message or an explanation of the login form -->
+          <p>กรุณากรอก รหัสนิสิตสิต และ อีเมล</p>
+       </header>
+       <!--     End  header Content  -->
+       <br>
+       <div class="field-set">
+         
+         
+               <!--   Password -->
+         
+          <span class="input-item">
+            <i class="fas fa-envelope-square"></i>
+           </span>
+          <!--   Password Input-->
+          <input class="form-input" type="email" placeholder="email@email.com" id="email"  name="email" required>
+         
+    <!--      Show/hide password  -->
+              <span>
+     </span>
+ 
+ 
+         
+          <br>
+    <!--        buttons -->
+    <!--      button LogIn -->
+          <button class="log-in" type="submit"> ยืนยัน | Confirm </button>
+       </div>
+      
+
+         
+    <!--   End Conrainer  -->
+      </div>
+      
+      <!-- End Form -->
+    </form>
+    </div>
+    {%if messages %}
+          {%for m in messages %}
+              {%if send%}
+                <script>
+                  Swal.fire({
+                    "title":"กรุณาตรวจสอบ EMAIL!",
+                    "text":"{{m}}",
+                    "icon":"success"
+                  })
+                </script>
+              {%else%}
+              <script>
+                Swal.fire({
+                  "title":"ไม่มี EMAIL!",
+                  "text":"{{m}}",
+                  "icon":"error"
+                })
+              </script>
+              {%endif%}
+          {%endfor%}
+          {%endif %}
+
+
+{% endblock %}

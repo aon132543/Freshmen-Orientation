@@ -1,0 +1,60 @@
+{% extends 'layout4.html'   %}
+{% block content %}
+        <div class="container">
+              <p><div class="alert alert-primary" role="alert">
+                 คุณกำลังดูของ {{ nickname }}  <a href="#" class="alert-link"></a>.
+              </div>
+              </p>
+              <p>              <div class="alert alert-primary" role="alert">
+                 ID ของคนที่กำลังดูคือ  {{ userid }}
+                <a href="#" class="alert-link"></a>.
+              </div></p>
+              <p>              <div class="alert alert-primary" role="alert">
+                 CPE ของคนที่คุณคือ CPE {{ cpenumber }}
+                <a href="#" class="alert-link"></a>.
+              </div></p>
+        <p><div class="alert alert-primary" role="alert">
+                น้องหาลายเซ็นต์ได้ทั้งหมด  {{ odercout }}  <a href="#" class="alert-link"></a>.
+              </div>
+              </p>
+                <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col" align="center">คำสั่งที่</th>
+              <th scope="col" align="center">ส่งคำขอให้ ID </th>
+                <th scope="col" align="center">ชื่อ</th>
+              <th scope="col" align="center">สถานะ</th>
+            </tr>
+          </thead>
+          <tbody>
+
+
+
+              {% for item in oders %}
+                        <tr>
+                          <th scope="row">{{ item.id }}</th>
+                          <td>{{ item.idcpeto}}</td>
+
+                        <td>
+                         {% for tests in test %}
+                              {% if tests.user_id == item.idcpeto %}
+                                 <p> {{ tests.nickname }} </p>
+                                 {% endif %}
+                             {% endfor %}
+
+                        </td>
+
+                          <td>{% if item.status == True %}
+                              <p align="center" ><span class="badge badge-pill badge-success">ได้ลายเซ็นแล้ว</span></p>
+                              {% else %}
+                              <p align="center"><span class="badge badge-pill badge-danger">ยังไม่ได้ลายเซ็น</span></p>
+                          {% endif %}
+                          </td>
+                        </tr>
+                    {% endfor %}
+          </tbody>
+        </table>
+    </div>
+
+
+{% endblock %}

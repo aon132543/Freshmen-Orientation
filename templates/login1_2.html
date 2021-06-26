@@ -1,0 +1,31 @@
+{% extends 'layout.html'   %}
+{% block content %}
+      <div class="container">
+        <h1 align="center">กรุณาตรวจสอบข้อมูล ของคุณ </h1>
+          <div class="alert alert-info" role="alert">
+  <h3 align="center"> ชื่อเล่นของคุณ คือ {{ nickname }}      ชั้นปีของคุณคือ ปี{{ edu }}</h3>
+</div>
+<div class="alert alert-warning" role="alert">
+          <h2 align="center">สายรหัสของคุณคือ CPE {{ cpenumber }}  สำคัญมาก !! เอาไว้ตามหาพี่รหัสนะ <span class="badge badge-secondary">ต้องจำ</span></h2>
+</div>
+
+<div class="alert alert-primary" role="alert">
+      <h3 align="center">  IDของคุณคือ ID :{{ userid }}  เอาไว้บอกเพื่อน หรือ เวลาเพื่อนขอ ID เอาไว้ ให้ลายเซ็น</h3>
+</div>
+          <div class="alert alert-dark" role="alert">
+        <h3 align="center"> Username : {{ username }} *** เอาไว้ เข้าสู่ระบบ </h3>
+        </div>
+
+<form action="setpassword" method="post">
+        {% csrf_token %}
+    <div class="form-group">
+        <h2><label for ="" > กรุณาตั้งรหัสผ่าน   </label></h2>
+    <label for="">ID:</label>
+  <input type="text" class="form-control"  readonly name="userid"  value= {{ userid }} ><br>
+        <label for="">PASSWORD:</label>
+   <input type="password" class="form-control" name="password">
+    <input type="submit" value="ยืนยัน" class="btn btn-primary">
+    </div>
+    </form>
+           </div>
+{% endblock %}

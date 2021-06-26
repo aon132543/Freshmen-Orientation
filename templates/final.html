@@ -1,0 +1,10 @@
+{% extends 'layoutnew.html'   %}
+{% block content %}
+{%if messages %}
+    {%for m in messages %}
+    {{m}}
+    {%endfor%}
+    
+{%endif %}
+    <h2>ส่งคำขอแล้วนะ</h2>
+{% endblock %}

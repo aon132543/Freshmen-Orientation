@@ -1,0 +1,114 @@
+
+{% extends 'layout.html'%}
+{% load static %}
+{% block content %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+	   <form method="POST">
+        {% csrf_token %}
+  	<title>Login | เข้าสู่ระบบ</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="static/css/font-awesome.min.css">
+	<link rel="stylesheet" href="{% static "css/style.css" %}?{% now "U" %} ">
+		   <link
+    rel="stylesheet"
+    href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+    crossorigin="anonymous"
+  />
+ 
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+		   
+
+	</head>
+	<body>
+	<section class="ftco-section">
+			<div class="row justify-content-center">
+				<div class="col-md-12 col-lg-10">
+					<div class="wrap d-md-flex">
+						<div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
+							<div class="text w-100">
+								<h2>Welcome to First login!!!</h2>
+								<p>เว็บปกส้มที่ไม่ส้ม อิอิ</p>
+								
+							</div>
+			      </div>
+						<div class="login-wrap p-4 p-lg-5">
+			      	<div class="d-flex">
+			      		<div class="w-100">
+			      			<h5 class="mb-4">First Login  | เข้าสู่ระบบครั้งแรก</h5>
+			      		</div>
+								<div class="w-100">
+									<p class="social-media d-flex justify-content-end">&nbsp; </p>
+								</div>
+			      	</div>
+							<form action="#" class="signin-form">
+			      		<div class="form-group mb-3">
+			      			<label class="label" for="name">Email | อีเมลล์ผู้ใช้งาน</label>
+			      			<input type="email" class="form-control" placeholder="test123@sample.com"  id="email" name="email" required>
+			      		</div>
+		            <div class="form-group mb-3"><!--      Show/hide password  -->
+     
+		            </div>
+								
+		            <div class="form-group">
+		            	<button type="submit" class="form-control btn btn-primary submit px-3">ยืนยัน | Confirm</button>
+		            </div>
+		           <!-- <div class="form-group d-md-flex">
+		        
+									<div class="w-50 text-md-left">
+										<a href="#">Forgot Password</a>
+									</div>
+						
+									<div class="w-50 text-md-right">
+									<a href="#">ยังไม่ Activate E-mail เบยยย</a>
+									</div>
+			
+		            </div> -->
+		          </form>
+		        </div>
+		      </div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="js/jquery.min.js"></script>
+  <script src="js/popper.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+<script src="{% static "js/showhide.js" %}"></script>
+
+	</body>
+</html>
+ {%if messages %}
+          {%for m in messages %}
+              {%if send%}
+                <script>
+                  Swal.fire({
+                    "title":"กรุณาตรวจสอบ EMAIL!",
+                    "text":"{{m}}",
+                    "icon":"success"
+                  })
+                </script>
+              {%else%}
+              <script>
+                Swal.fire({
+                  "title":"ไม่มี EMAIL!",
+                  "text":"{{m}}",
+                  "icon":"error"
+                })
+              </script>
+              {%endif%}
+          {%endfor%}
+          {%endif %}
+
+
+{% endblock %}

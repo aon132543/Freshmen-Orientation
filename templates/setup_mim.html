@@ -1,0 +1,114 @@
+
+{% extends 'layout.html'%}
+{% load static %}
+{% block content %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="static/css/font-awesome.min.css">
+	<link rel="stylesheet" href="static/css/style.css">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+ <link
+    rel="stylesheet"
+    href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+    crossorigin="anonymous"
+  />
+ 
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
+
+
+<link rel="stylesheet" href="{% static "static/css/style.css" %}?{% now "U" %}">
+<!-- <link rel="stylesheet" href="{% static "css/setup.css" %}?{% now "U" %}"> -->
+							   <form method="POST"action = "" enctype="multipart/form-data">
+    {% csrf_token %}
+<section class="ftco-section">
+			<div class="row justify-content-center">
+				<div class="col-md-12 col-lg-10">
+					<div class="wrap d-md-flex">
+						<div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
+							<div class="text w-100">
+								<h2>Welcome to "First Login"</h2>
+								<p>เว็บปกส้มที่ไม่ส้ม อิอิ</p>
+								
+							</div>
+			      </div>
+						<div class="login-wrap p-4 p-lg-5">
+			      	<div class="d-flex">
+			      		<div class="w-100">
+			      			<h4 class="mb-4">Login | เข้าสู่ระบบครั้ง</h4>
+			      		</div>
+								<div class="w-100">
+									<p class="social-media d-flex justify-content-end">&nbsp; </p>
+								</div>
+			      	</div>
+			      		<div class="form-group mb-3">
+			      			<label class="label" for="name">Username | ชื่อผู้ใช้งาน</label><i class="fas fa-user"></i>
+			      			<input type="text" class="form-control" placeholder="Username"  id="username" name="username" required>
+			      		</div>
+		            <div class="form-group mb-3">
+		            	<label class="label" for="password">Password | รหัสผ่าน</label>             <span><i class="fa fa-eye" aria-hidden="true"  type="button" id="eye"></i>
+         </span>
+		              <input type="password" class="form-control" placeholder="Password" id="password1" name="password1" required>
+						        <!--      Show/hide password  -->
+     
+		            </div>
+								<div class="form-group mb-3">
+		            	<label class="label" for="password">Confirm Password | ยืนยันรหัสผ่าน</label>             <span><i class="fa fa-eye" aria-hidden="true"  type="button" id="eye1"></i>
+         </span>
+		              <input type="password" class="form-control" placeholder="Confirm Password" id="password2" name = "password2" required>
+						        <!--      Show/hide password  -->
+     
+		            </div>
+							<label>ส่วนที่2</label>
+        {{form.as_p}}	
+								
+								
+		            <div class="form-group">
+		            	<button type="submit" class="form-control btn btn-primary submit px-3">ยืนยัน | Confirm</button>
+		        </div>
+						
+			
+		      </div>
+			</div>
+		</div>
+	</div>
+	</section>
+
+
+
+    {%if messages %}
+          {%for m in messages %}
+              {%if mes%}
+                <script>
+                  Swal.fire({
+                    "title":"สำเร็จ!",
+                    "text":"{{m}}",
+                    "icon":"success"
+                  })
+                </script>
+
+              
+              
+              {%else%}
+
+
+              <script>
+                Swal.fire({
+                  "title":"พบปัญหา",
+                  "text":"{{m}}",
+                  "icon":"error"
+                })
+              </script>
+
+              {%endif%}
+
+
+          {%endfor%}
+          {%endif %}
+
+
+{% endblock %}

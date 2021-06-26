@@ -1,0 +1,69 @@
+{% extends 'layoutnew.html' %} 
+{% load static %}
+{% block content %}
+
+
+<div class="con-setting">
+	<div class="card-center">
+	<div class="col align-self-center">
+			
+			<figure class="snip1336">
+				<img src="{{user_profile.profile_bg_pic.url}}"/>
+			<figcaption>
+				<img src="{{user_profile.profile_pic.url}}" alt="profile-sample4" class="profile" />
+				
+			<h2>
+			{{user_profile.displayname}}
+
+			</h2>
+			<h2>
+			<p>
+			CPE : {{user_profile.cpenumber}}
+			</p>
+			</h2>
+			</figcaption>
+			</figure>
+			</div>
+			</div>
+
+    <h2 style="padding-bottom:50px;">เปลี่ยนรูปโปรไฟล์และพื้นหลัง</h2>
+	
+    <form method="post" action="" enctype="multipart/form-data">
+        {% csrf_token%}
+  
+
+		<label for="">Display name</label>
+		<input class ="form-control" type="text" id="display_name" name="display_name" placeholder="{{user_profile.displayname}}"><br><br>
+
+		<label for="image" class="input-profile">รูปโปรไฟล์</label>
+		<input type="file"  name="image-profile" accept="image/*"">  <br><br>
+
+		<label for="image" class="input-profile">รูปภาพพื้นหลัง</label>
+		<input type="file"  name="image-bg" accept="image/*" class="from-contorl" >
+
+		<div class="btn-details-general">
+
+		
+			<button type="submit"> เรียบร้อย </button>
+			</div>
+
+    </form>
+
+	{%if messages %}
+	{%for m in messages %}
+	  <script>
+		Swal.fire({
+			position: 'top-end',
+			icon: 'success',
+			title: 'ชื่อที่ใช้แสดง , รูปโปรไฟล์,รูปพื้นหลัง ถูกบันทึกแล้ว',
+			showConfirmButton: false,
+			timer: 1500
+		  })
+	  </script>
+	{%endfor%}
+	{%endif %}
+		  
+	
+</div>
+
+{% endblock %}

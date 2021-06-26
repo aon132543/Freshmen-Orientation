@@ -1,0 +1,77 @@
+{% extends 'layoutnew.html'   %}
+{% load static %}
+{% block content %}
+<div class="tab">
+  ตรวจสอบลายเซ็น
+</div>
+    <div class="container">
+      
+    <br>
+    
+
+        <br>
+        <div class="alert alert-success" role="alert">
+ เช็คลายเซ็น
+</div>
+        <div class="alert alert-success" role="alert">
+ วิธีการคำนวนลายเซ็น : จำนวนที่ต้องการ - จำนวนลายเซ็นที่เซ็นให้แล้ว = ลายเซ็นที่ยังขาด
+</div>
+
+ <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">ชั้นปี</th>
+      <th scope="col">จำนวนที่ต้องการ</th>
+      <th scope="col">เซ็นให้แล้ว</th>
+      <th scope="col">ยังไม่เซ็นให้</th>
+
+      <th scope="col">จำนวนลายเซ็นที่ยังขาด</th>
+      <th scope="col">ลายเซ็นที่ขอทั้งหมด</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>ครบ 106 ลายเซ็น</td>
+        <td>{{ edu1a }}</td>
+      <td>{{ edu1s }}</td>
+      <td>
+
+          {{ sumedu1 }}
+
+      </td>
+      <td>{{ edu1 }}</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>อย่างน้อย 50 ลายเซ็น </td>
+        <td>{{ edu2a }}</td>
+      <td>{{ edu2s }}</td>
+      <td>{{ sumedu2 }}</td>
+      <td> {{ edu2 }} </td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>อย่างน้อย 30 ลายเซ็น</td>
+        <td>{{ edu3a }}</td>
+      <td>{{ edu3s }}</td>
+      <td>{{ sumedu3 }}</td>
+
+
+      <td>{{ edu3 }}</td>
+    </tr>
+  <tr>
+      <th scope="row"> 4-8 </th>
+      <td>อย่างน้อย 20 ลายเซ็น </td>
+      <td>{{ edu4a }}</td>
+      <td>{{ edu4s }}</td>
+      <td>{{ sumedu4 }}</td>
+      <td>{{ edu4 }}</td>
+    </tr>
+  <tr>
+  </tbody>
+
+</table>
+
+    </div>
+  {% endblock %}

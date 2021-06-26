@@ -1,0 +1,81 @@
+{% extends 'layoutnew.html'%}
+{% load static %}
+{% block content %}
+
+<br>
+<div class="container">
+  <div class="license-form">
+
+
+    <br>
+
+    <h2>ส่งคำขอลายเซ็น<br></h2>
+    <h3> คุณคือ : {{ user.userprofile.nickname }} ต้องการ ลายเซ็นของ</h3>
+    <p>
+      <br>
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-input2">
+
+          <input type="number" class="form-input2" name="iduser" placeholder="ID" required>
+          <div class="btn-details-general">
+            <button type="submit" value="ส่งเลย">ส่งเลย</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+{%if messages %}
+          {%for m in messages %}
+          {% if mes %}
+          <script>
+            Swal.fire({
+              "title":"แจ้งเตือน",
+              "text":"{{m}}",
+              "icon":"info"
+            })
+            function redirect(){
+              window.location.href = "/license";
+           }
+       
+           setTimeout(redirect, 1000);
+          </script>
+
+          {%else %}
+            <script>
+              Swal.fire({
+                icon: 'question',
+                title: 'คุณจะขอลายเซ็นของ   '+'{{user_Profile.displayname}}'+'  ?',
+                width: 600,
+                padding: '3em',
+                background: '#fff url(/images/trees.png)',
+                imageUrl: '{{user_Profile.profile_pic.url}}',
+                backdrop: `
+                  rgba(0,0,123,0.4)
+                  url("{% static 'images/cat.gif' %}")
+                  left top
+                  no-repeat
+                `,
+                html:
+                  '<h3>ชื่อเล่น : ' +'{{user_Profile.nickname}}'+'</h3>'+
+                  '<h3>ชั้นปี : ' +'{{user_Profile.edu}}'+'</h3>'+
+                  '<h3>รหัสนิสิต : ' +'{{user_Profile.std}}'+'</h3>',
+                
+              "showCancelButton":true,
+              "cancelButtonText":"ย้อนกลับ",
+              "confirmButtonText":"ขอลายเซ็น"
+              })
+              .then(function (result){
+                if (result.isConfirmed){
+                  window.location.href="final"+"/"+{{ user.userprofile.user_id }}+"/"+{{user_Profile.user_id}}
+                }
+              })
+              </script>
+              {%endif %}
+          {%endfor%}
+          {%endif %}
+
+
+{% endblock %}
