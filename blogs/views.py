@@ -107,7 +107,7 @@ def page3(request):
             domain =  get_current_site(request).domain
             link = reverse('activate',kwargs={'uidb64':uidb64,'token':token_generator.make_token(user)})
             
-            activate_url = 'http://'+domain+link
+            activate_url = 'https://'+domain+link
             
             
             htmly     = get_template('email.html')
@@ -155,7 +155,7 @@ def page4(request):
             domain =  get_current_site(request).domain
             link = reverse('forget',kwargs={'uidb64':uidb64,'token':token_generator.make_token(user)})
             
-            activate_url = 'http://'+domain+link
+            activate_url = 'https://'+domain+link
             
             
             htmly     = get_template('emailpassword.html')
@@ -756,14 +756,14 @@ def like_s(request,oder_id):
     if request.user.is_authenticated:
             oder = Like.objects.filter(id=oder_id)
             oder.update(status=True)
-    return redirect(appsend)
+    return redirect(request.GET.get('next'),'')
  
 @login_required(login_url='page1') 
 def like_d(request,oder_id):
     if request.user.is_authenticated:
             oder = Like.objects.filter(id=oder_id)
             oder.update(status=False)
-    return redirect(appsend)   
+    return redirect(request.GET.get('next'),'')   
 
 
 #======================================

@@ -51,7 +51,7 @@
             <h2>
       
               {% for tests in test %}
-              {% if tests.user_id == item.idcpesend %}
+              {% if tests.user_id == item.idcpeto %}
               {{ tests.displayname }}
                  {% endif %}
              {% endfor %}
@@ -61,7 +61,7 @@
 
             <p>
               {% for tests in test %}
-              {% if tests.user_id == item.idcpesend %}
+              {% if tests.user_id == item.idcpeto %}
                  <h2> CPE {{ tests.cpenumber }} </h2>
                  {% endif %}
              {% endfor %}
@@ -77,12 +77,12 @@
               {%if item.idcpesend|is_like_filter:item.idcpeto %}
 
               <div class="like-s">
-              <button onclick="window.location.href='like_d'+'/'+'{{item.idcpesend|get_oderid_like:item.idcpeto}}' " ><i class="fas fa-heart"></i>  x {{likes|like_filter:item.idcpeto}}</button>
+              <button onclick="window.location.href='like_d'+'/'+'{{item.idcpesend|get_oderid_like:item.idcpeto}}?next={{ request.path}}' " ><i class="fas fa-heart"></i>  x {{likes|like_filter:item.idcpeto}}</button>
 
               
               </div>
               {%else %}
-              <button onclick="window.location.href='like_s'+'/'+'{{item.idcpesend|get_oderid_like:item.idcpeto}}'" ><i class="far fa-heart"></i>  x {{likes|like_filter:item.idcpeto}}</button>
+              <button onclick="window.location.href='like_s'+'/'+'{{item.idcpesend|get_oderid_like:item.idcpeto}}?next={{request.path}}'" ><i class="far fa-heart"></i>  x {{likes|like_filter:item.idcpeto}}</button>
               {%endif %}
            
               {% endif %}

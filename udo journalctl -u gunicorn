@@ -1,0 +1,21 @@
+[0;1;32m●[0m gunicorn.service - gunicorn daemon
+     Loaded: loaded (/etc/systemd/system/gunicorn.service; disabled; vendor preset: enabled)
+     Active: [0;1;32mactive (running)[0m since Sun 2021-06-27 04:52:23 EDT; 15s ago
+TriggeredBy: [0;1;32m●[0m gunicorn.socket
+   Main PID: 38574 (gunicorn)
+      Tasks: 4 (limit: 1136)
+     Memory: 107.7M
+     CGroup: /system.slice/gunicorn.service
+             ├─38574 /home/sammy/myprojectdir/myprojectenv/bin/python /home/sammy/myprojectdir/myprojectenv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/run/gunicorn.sock cpe.wsgi:application
+             ├─38586 /home/sammy/myprojectdir/myprojectenv/bin/python /home/sammy/myprojectdir/myprojectenv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/run/gunicorn.sock cpe.wsgi:application
+             ├─38587 /home/sammy/myprojectdir/myprojectenv/bin/python /home/sammy/myprojectdir/myprojectenv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/run/gunicorn.sock cpe.wsgi:application
+             └─38588 /home/sammy/myprojectdir/myprojectenv/bin/python /home/sammy/myprojectdir/myprojectenv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/run/gunicorn.sock cpe.wsgi:application
+
+Jun 27 04:52:23 ceswebsite systemd[1]: Started gunicorn daemon.
+Jun 27 04:52:23 ceswebsite gunicorn[38574]: [2021-06-27 04:52:23 -0400] [38574] [INFO] Starting gunicorn 20.1.0
+Jun 27 04:52:23 ceswebsite gunicorn[38574]: [2021-06-27 04:52:23 -0400] [38574] [INFO] Listening at: unix:/run/gunicorn.sock (38574)
+Jun 27 04:52:23 ceswebsite gunicorn[38574]: [2021-06-27 04:52:23 -0400] [38574] [INFO] Using worker: sync
+Jun 27 04:52:23 ceswebsite gunicorn[38586]: [2021-06-27 04:52:23 -0400] [38586] [INFO] Booting worker with pid: 38586
+Jun 27 04:52:23 ceswebsite gunicorn[38587]: [2021-06-27 04:52:23 -0400] [38587] [INFO] Booting worker with pid: 38587
+Jun 27 04:52:23 ceswebsite gunicorn[38588]: [2021-06-27 04:52:23 -0400] [38588] [INFO] Booting worker with pid: 38588
+Jun 27 04:52:24 ceswebsite gunicorn[38586]:  - - [27/Jun/2021:08:52:24 +0000] "GET / HTTP/1.1" 400 143 "-" "curl/7.68.0"

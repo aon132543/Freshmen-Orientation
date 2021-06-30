@@ -17,8 +17,8 @@ class UserProfile(models.Model):
     nickname = models.CharField(max_length=20)
     #count = models.CharField(max_length=2)
     count = models.BooleanField(default=False)
-    profile_pic = ResizedImageField(size=[700, 700], crop=['middle', 'center'],null=False,blank=False,quality=100)
-    profile_bg_pic = ResizedImageField(size=[400, 500], crop=['middle', 'center'],null=False, blank=False,quality=100)
+    profile_pic = ResizedImageField(default="profile.jpg",size=[700, 700], crop=['middle', 'center'],null=False,blank=False,quality=100)
+    profile_bg_pic = ResizedImageField(default="profileback.jpg",size=[400, 500], crop=['middle', 'center'],null=False, blank=False,quality=100)
     displayname = models.CharField(max_length=20,default='noverify')
     def __str__(self):
         return self.user.username

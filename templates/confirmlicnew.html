@@ -102,15 +102,15 @@ Swal.fire({
             {% for tests in test %}
             {% if tests.user_id == item.idcpesend %}
             
-            {%if item.idcpesend|is_like_filter:item.idcpeto %}
+            {%if item.idcpeto|is_like_filter:item.idcpesend %}
 
             <div class="like-s">
-            <button onclick="window.location.href='like_d'+'/'+'{{item.idcpesend|get_oderid_like:item.idcpeto}}' " ><i class="fas fa-heart"></i>  x {{likes|like_filter:item.idcpeto}}</button>
+            <button onclick="window.location.href='like_d'+'/'+'{{item.idcpeto|get_oderid_like:item.idcpesend}}?next={{request.path}}' " ><i class="fas fa-heart"></i>  x {{likes|like_filter:item.idcpesend}}</button>
 
             
             </div>
             {%else %}
-            <button onclick="window.location.href='like_s'+'/'+'{{item.idcpesend|get_oderid_like:item.idcpeto}}'" ><i class="far fa-heart"></i>  x {{likes|like_filter:item.idcpeto}}</button>
+            <button onclick="window.location.href='like_s'+'/'+'{{item.idcpeto|get_oderid_like:item.idcpesend}}?next={{request.path}}'" ><i class="far fa-heart"></i>  x {{likes|like_filter:item.idcpesend}}</button>
             {%endif %}
          
             {% endif %}
