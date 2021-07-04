@@ -41,6 +41,8 @@ urlpatterns = [
     path('confirmlic',views.confirmlicn,name = "confirmlic"),
 
     path('confirmsend/<int:oder_id>',views.confirmsend,name="confirmsend"),
+    
+    path('confirmsendall/<int:idcpeto>',views.confirmsendall,name="confirmsendall"),
 
     path('error',views.error,name="error"),
     path('findstd',views.findstd,name="findstd"),

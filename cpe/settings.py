@@ -30,6 +30,7 @@ DEBUG = False
 
 #ALLOWED_HOSTS = ['comengsrc.page', 'www.comengsrc.page']
 ALLOWED_HOSTS = ['comengsrc.website','www.comengsrc.website']
+#ALLOWED_HOSTS=['*']
 MESSAGE_STIRAGE ="django.contrib.messages.storage.cookie.CookieStorage"
 
 

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from blogs.models import OderCommand, UserProfile,Like,indexpic
-
+from django.http import HttpResponse,HttpResponseRedirect
 
 
 from blogs.form import signUpForm,setting_pic,setUp
@@ -43,12 +43,28 @@ from django.template import Context
 
 
 def hello (request):
-    pic = indexpic.objects.get(id=1)
-    ratting = 3
-    return render(request,'index.html',
-                  {"pic":pic}
-
-                )
+    like_obj = Like.objects.filter(status=True)
+    users = User.objects.filter()
+    maxcount = 0
+    maxobj = None
+    lstobj = []
+    for user in users:
+        countlike =  len(like_obj.filter(idmy_id = user.id))
+        lstobj.append([user,countlike])
+    lstobj.sort(key=lambda x:x[1],reverse=True)
+    
+    #เอา obj UserProfile ของ TOP 5
+    top1 = UserProfile.objects.get(user_id = lstobj[0][0])
+    top2 = UserProfile.objects.get(user_id = lstobj[1][0])
+    top3 = UserProfile.objects.get(user_id = lstobj[2][0])
+    top4 = UserProfile.objects.get(user_id = lstobj[3][0])
+    top5 = UserProfile.objects.get(user_id = lstobj[4][0])
+    context = {'top1' : top1.profile_pic.url, 
+               'top2': top2.profile_pic.url,
+               'top3':top3.profile_pic.url,
+               'top4':top4.profile_pic.url,
+               'top5':top5.profile_pic.url}
+    return render(request,'index.html',context)
 
 def page1(request):
     openserver = 1
@@ -469,13 +485,28 @@ def confirmsend(request,oder_id):
     if request.user.is_authenticated:
         oder = OderCommand.objects.filter(id=oder_id)
         oder.update(status=True)
-    return redirect(confirmlicn)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+def confirmsendall(request,idcpeto):
+    itemoder_obj = OderCommand.objects.filter(idcpeto=idcpeto)
+    itemoder_obj = itemoder_obj.filter(status=False)
+    if len(itemoder_obj) == 0:
+        messages.success(request,"เราเซ็นทั้งหมดแล้วหนิ ? ")
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    print(itemoder_obj)
+    for oder in itemoder_obj:
+        oder.status =True
+        oder.save()
+    messages.success(request,"เซ็นทั้งหมดให้แล้วนะ  ")
+    
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    
 def removeodercheck(request,oder_id):
     if request.user.is_authenticated:
         oder = oder_id
         requestsend = {'id':oder}
-    return render(request,'removeoder.html',requestsend)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 def removeoder(request,oder_id):
     if request.user.is_authenticated:
@@ -483,7 +514,8 @@ def removeoder(request,oder_id):
         oder.delete()
         messages.success(request,"ลบเรียบร้อยแล้วครับ")
         
-    return redirect('appsend')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 def error(request):
     return render(request,'error.html')
@@ -754,14 +786,14 @@ def like_s(request,oder_id):
     if request.user.is_authenticated:
             oder = Like.objects.filter(id=oder_id)
             oder.update(status=True)
-    return redirect(request.GET.get('next'),'')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
  
 @login_required(login_url='page1') 
 def like_d(request,oder_id):
     if request.user.is_authenticated:
             oder = Like.objects.filter(id=oder_id)
             oder.update(status=False)
-    return redirect(request.GET.get('next'),'')   
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 #======================================

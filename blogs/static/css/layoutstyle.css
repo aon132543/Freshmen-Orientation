@@ -464,6 +464,17 @@ input[class="form-input2"] {
     top: 20px;
     
   }
+  .btn-license-all button{
+    border: 0.8px solid;
+    border-radius: 0%;
+    border-color: #fff;
+    color: #fff;
+    background-color: #5cb85c;
+    transform: right;
+    width: 30%;
+    font-family: "Prompt", sans-serif;
+  }
+  
   
 }
 .status-not{
@@ -556,5 +567,21 @@ bootstarp */
   font-size: 20px;
   margin-bottom: 20px;
   padding-bottom: 20px;
+  
+}
+/*ะ button all */
+.btn-license-all button{
+  border: 0.8px solid;
+  border-radius: 0%;
+  border-color: #fff;
+  color: #fff;
+  background-color: #5cb85c;
+  transform: center;
+  width: 50%;
+  font-family: "Prompt", sans-serif;
+}
+.btn-license-all{
+  text-align: center;
+  padding-top: 0%;
   
 }

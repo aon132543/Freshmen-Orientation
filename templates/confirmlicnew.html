@@ -30,7 +30,7 @@ Swal.fire({
   }
 
 
-    function complete_license(id){
+  function complete_license(id){
 
     Swal.fire({
       "title":"ยืนยันที่จะเซ็นใช่ไหม ?",
@@ -47,15 +47,52 @@ Swal.fire({
     })
 
   }
+  function complete_delete(id){
 
+    Swal.fire({
+      "title":"ต้องการจะลบใช่ไหม ?",
+      "text":"ลบแล้วไม่สามารถกู้คืนได่้นะ",
+      "icon":"question",
+      "showCancelButton":true,
+      "cancelButtonText":"ไม่ลบ",
+      "confirmButtonText":"ลบ"
+    })
+    .then(function (result){
+      if (result.isConfirmed){
+        window.location.href="removeoder"+"/"+id
+      }
+    })
+
+  }
+
+  function complete_license_all(idcpeto){
+
+    Swal.fire({
+      "title":"ยืนยันที่จะเซ็นทุกคำขอ ?",
+      "text":"เซ็นแล้วไม่สามารถแก้ไขคืนได้นะ | ถึงน้องที่ให้พี่ทำ ไม่ต้องรอถึงปีหน้าแล้วนะครับ",
+      "icon":"question",
+      "showCancelButton":true,
+      "cancelButtonText":"ย้อนกลับ",
+      "confirmButtonText":"เซ็น"
+    })
+    .then(function (result){
+      if (result.isConfirmed){
+        window.location.href="confirmsendall"+"/"+idcpeto
+      }
+    })
+
+  }
 
 </script>
 {% endblock %}
 <div class="tab">
   คำขอลายเซ็น
 </div>
+
 <div class="container">
+
   <div class="row">
+    
 
   {% for item in oders %}
 
@@ -149,7 +186,7 @@ Swal.fire({
         {% for tests in test %}
         {% if tests.user_id == item.idcpesend %}
         {% for user in User %}
- 	{% if user.id == tests.user_id %}
+ 	      {% if user.id == tests.user_id %}
        
         <div class="btn-details">
           <button
@@ -157,6 +194,17 @@ Swal.fire({
         </div>
         {% endif %}
         {% endfor %}
+
+
+        <a href="#" onclick="complete_delete({{item.id}})" class="button-del">
+
+          <i class="fas fa-trash-alt"></i>
+          ลบ
+        </a>
+
+      
+
+
         {% endif %}
         {% endfor %}
         <!===================>
@@ -168,6 +216,10 @@ Swal.fire({
 
 
     {% endfor %}
+  </div>
+  <div class="btn-license-all">
+    
+    <button onclick="complete_license_all({{ request.user.id }})"> <i class="fas fa-check-circle"></i> เซ็นให้ทุกคำขอ</button>
   </div>
   <nav aria-label="Page navigation example">
     {% if oders.paginator.num_pages > 1 %}
@@ -185,7 +237,17 @@ Swal.fire({
   
   {% endif %}
 </div>
-
+{%if messages %}
+{%for m in messages %}
+<script>
+              Swal.fire({
+                "title":"สำเร็จ",
+                "text":"{{m}}",
+                "icon":"success"
+              })
+            </script>
+{%endfor%}
+{%endif %}
 
 
 {% endblock %}
