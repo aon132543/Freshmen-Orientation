@@ -82,6 +82,10 @@
         <p></p>
         <h2>{{ user.userprofile.nickname}}</h2>
         <p></p>
+        <p></p>
+        <h2>{{ user.userprofile.displayname}}</h2>
+        <p></p>
+
         <h2>CPE {{ user.userprofile.cpenumber }}</h2>
         <p></p>
         <h2>ID {{ request.user.id }}</h2>
@@ -91,7 +95,7 @@
         {%if user.userprofile.edu == "1"%}
         <a class="nav-link" href="appsend"><i class="fas fa-book"></i> สถานะลายเซ็น <span class="sr-only">(current)</span></a>
         {%endif%}
-        <a class="nav-link" href='confirmlic'> <i class="fas fa-sign-out-alt"></i> คำขอลายเซ็น</a>
+        <a class="nav-link" href='confirmlic'> <i class="fas fa-sign-out-alt"></i> คำขอลายเซ็นที่ได้รับ</a>
         {%if user.userprofile.edu == "1"%}
         <a class="nav-link" href="checklicense"> <i class="fas fa-address-card"></i> ตรวจสอบลายเซ็น</i></a>
         {%endif%}

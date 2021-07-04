@@ -1,0 +1,184 @@
+{% extends 'layoutnew.html' %}
+{% block content %}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% load like_filter %}
+
+{% block js %}
+
+
+<script>
+  function complete_delete(id){
+
+    Swal.fire({
+      "title":"ต้องการจะลบใช่ไหม ?",
+      "text":"ลบแล้วไม่สามารถกู้คืนได่้นะ",
+      "icon":"question",
+      "showCancelButton":true,
+      "cancelButtonText":"ไม่ลบ",
+      "confirmButtonText":"ลบ"
+    })
+    .then(function (result){
+      if (result.isConfirmed){
+        window.location.href="removeoder"+"/"+id
+      }
+    })
+
+  }
+</script>
+{%endblock %}
+{% if user.is_authenticated %}
+<div class="tab">
+  สถานะลายเซ็น
+</div>
+<div class="container">
+
+  <div class="row">
+        {% for item in oders %}
+        <figure class="snip1336">
+          {% for tests in test %}
+          {% if tests.user_id == item.idcpeto %}
+          <img src="{{tests.user.userprofile.profile_bg_pic.url}}"/>
+
+          {% endif %}
+          {% endfor %}
+          <figcaption>
+            {% for tests in test %}
+            {% if tests.user_id == item.idcpeto %}
+            <img src="{{tests.user.userprofile.profile_pic.url}}" alt="profile-sample4" class="profile" />
+            {% endif %}
+            {% endfor %}
+
+            <h2>
+      
+              {% for tests in test %}
+              {% if tests.user_id == item.idcpeto %}
+              {{ tests.displayname }}
+                 {% endif %}
+             {% endfor %}
+          
+            </h2>
+            <p>
+
+              {% for tests in test %}
+              {% if tests.user_id == item.idcpeto %}
+              {% for user in Users %}
+		{%if user.id = test.user_id %}
+		 	{{user.fistname}}
+                 {% endif %}
+             {% endfor %}
+
+            <p>
+
+
+
+            <p>
+              {% for tests in test %}
+              {% if tests.user_id == item.idcpeto %}
+		{% if tests.edu == "1" %}
+		<h2>CPE {{tests.cpenumber}}</h2>
+	        {% else %}
+		<h2> CPE - </h2> 
+                {% endif %}
+		{% endif %}
+            	{% endfor %}
+
+            
+          </p>
+          <!-----ปุ่ม LIKE---->
+          <div class="like">
+            <div class="btn-like">
+              {% for tests in test %}
+              {% if tests.user_id == item.idcpesend %}
+              
+              {%if item.idcpesend|is_like_filter:item.idcpeto %}
+
+              <div class="like-s">
+              <button onclick="window.location.href='like_d'+'/'+'{{item.idcpesend|get_oderid_like:item.idcpeto}}?next={{ request.path}}' " ><i class="fas fa-heart"></i>  x {{likes|like_filter:item.idcpeto}}</button>
+
+              
+              </div>
+              {%else %}
+              <button onclick="window.location.href='like_s'+'/'+'{{item.idcpesend|get_oderid_like:item.idcpeto}}?next={{request.path}}'" ><i class="far fa-heart"></i>  x {{likes|like_filter:item.idcpeto}}</button>
+              {%endif %}
+           
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+
+            <!--ปุ่มเซ็น-->
+            {% if item.status == True %}
+            <h2 align="center" class="status-received">ได้ลายเซ็นแล้ว</h2>
+            {% else %}
+            <h2 align="center" class="status-not">ยังไม่ได้ลายเซ็น</h2>
+            {% endif %}
+
+                
+            <!--ปุ่มลบ-->
+
+            <div class="d-button-del">
+            {% if item.status == False %}
+            <a href="#" onclick="complete_delete({{item.id}})" class="button-del">
+
+              <i class="fas fa-trash-alt"></i>
+              ลบ
+            </a>
+
+          </div>
+          
+          {%endif %}
+
+
+        
+        
+
+
+
+          </figcaption>
+
+        </figure>
+      {% endfor %}
+      </div>
+
+        <nav aria-label="Page navigation example">
+          {% if oders.paginator.num_pages > 1 %}
+          <ul class="pagination">
+          {% for pagenumber in oders.paginator.page_range %}
+    
+              <li class="page-item
+              {% if oders.number == pagenumber %}
+                    active
+    
+              {% endif %}
+              "><a class="page-link" href="?page={{ pagenumber }}">{{ pagenumber }}</a></li>
+                {% endfor %}
+          </ul>
+    
+    
+              {% endif %}
+
+     
+      </div>
+
+
+  {% else %}
+  <h2>กรุณา login ก่อนครับ </h2>
+
+  {% endif %}
+
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{%if messages %}
+{%for m in messages %}
+<script>
+              Swal.fire({
+                "title":"สำเร็จ",
+                "text":"{{m}}",
+                "icon":"success"
+              })
+            </script>
+{%endfor%}
+{%endif %}
+
+
+{% endblock %}

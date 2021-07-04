@@ -39,9 +39,15 @@
 
             <td>
                     {% for tests in test %}
+
                               {% if tests.user_id == item.idcpesend %}
-                                 <p> CPE {{ tests.cpenumber }} </p>
-                                 {% endif %}
+				{% if tests.edu  == "1" %}
+                                <p> CPE {{ tests.cpenumber }} </p>
+				{%else%}
+				<p> CPE - </p>
+				{% endif %}
+                                {% endif %}
+
                              {% endfor %}
                     </td>
 

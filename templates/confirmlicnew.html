@@ -7,7 +7,7 @@
 
 {% block js %}
 <script>
-  function detail_id(std,cpenumber,nickname,profile_pic,displayname,edu){
+  function detail_id(std,cpenumber,nickname,profile_pic,displayname,edu,fistname,lastname){
 
     
 Swal.fire({
@@ -23,8 +23,8 @@ Swal.fire({
   `,
   html:
     '<h3>ชื่อเล่น : ' +nickname+'</h3>'+
+    '<h3> ชื่อจริง : ' +fistname+'  '+lastname+'</h3>'+
     '<h3>ชั้นปี : ' +edu+'</h3>'+
-    '<h3>CPE : ' +cpenumber+'</h3>'+
     '<h3>รหัสนิสิต : ' +std+'</h3>',
 })
   }
@@ -65,8 +65,7 @@ Swal.fire({
         <img src="{{tests.user.userprofile.profile_bg_pic.url}}" />
         {% endif %}
       {% endfor %}
-      <figcaption>
-        {% for tests in test %}
+      <figcaption>        {% for tests in test %}
           {% if tests.user_id == item.idcpesend %}
           <img src="{{tests.user.userprofile.profile_pic.url}}"
             alt="profile-sample4" class="profile" />
@@ -82,14 +81,35 @@ Swal.fire({
           {% endfor %}
 
         </h2>
+        
+           <p>
+              {% for tests in test %}
+              {% if tests.user_id == item.idcpesend %}
+                {% for user in User %}
+                 {% if user.id == tests.user_id %}
+                   {{user.first_name}} {{user.last_name}}
+                 {%endif%}
+                {% endfor %}
+                {% endif %}
+                {% endfor %}
+
+
+          </p>
+
 
 
         <p>
           {% for tests in test %}
-            {% if tests.user_id == item.idcpesend %}
-              <h2> CPE {{ tests.cpenumber }} </h2>
-            {% endif %}
-          {% endfor %}
+         {% if tests.user_id == item.idcpesend %}
+
+                {% if tests.edu  == "1" %}
+                <h2>CPE {{tests.cpenumber}}</h2>
+		{% else %}
+		<h2>CPE -</h2>
+                 {% endif %}
+                {% endif %}
+             {% endfor %}
+
 
         </p>
        
@@ -128,11 +148,15 @@ Swal.fire({
         
         {% for tests in test %}
         {% if tests.user_id == item.idcpesend %}
-
+        {% for user in User %}
+ 	{% if user.id == tests.user_id %}
+       
         <div class="btn-details">
           <button
-            onclick="detail_id('{{tests.std}}','{{tests.cpenumber}}','{{tests.nickname}}','{{tests.profile_pic.url}}','{{tests.displayname}}','{{tests.edu}}')">รายละเอียด</button>
+            onclick="detail_id('{{tests.std}}','{{tests.cpenumber}}','{{tests.nickname}}','{{tests.profile_pic.url}}','{{tests.displayname}}','{{tests.edu}}','{{user.first_name}}','{{user.last_name}}')">รายละเอียด</button>
         </div>
+        {% endif %}
+        {% endfor %}
         {% endif %}
         {% endfor %}
         <!===================>
@@ -161,13 +185,6 @@ Swal.fire({
   
   {% endif %}
 </div>
-
-
-
-
-
-
-
 
 
 

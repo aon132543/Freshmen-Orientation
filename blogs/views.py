@@ -86,15 +86,16 @@ def page2(request):
 def page3(request):
     if request.method == 'POST':
         email = request.POST['email']
-        emailfind = User.objects.filter(email__exact=str(email))
-        User_Obj = User.objects.get(email__exact=str(email))
-        #print(emailfind.user_id)
-        email_Check = UserProfile.objects.get(user_id=User_Obj.id)
-        #print(email_Check.count)
-        #print(count)
+        try:
+            emailfind = User.objects.filter(email__exact=str(email))
+            User_Obj = User.objects.get(email__exact=str(email))
+            email_Check = UserProfile.objects.get(user_id=User_Obj.id)
+        except User.DoesNotExist:
+            messages.success(request,"อีเมลไม่มีในระบบ ไม่ได้ลงทะเบียนไว้ กรุณาติดต่อ admin")
+            return render(request,'login_emailmim.html',{"mes":True})
         
-        if len(emailfind)==0 or int(email_Check.count) == 1:
-            messages.error(request,"กรอกอีเมลผิด หรือเคยลงทะเบียนไปแล้ว ถ้า หากมั่นใจแล้วว่าถูกต้อง ติดต่อรุ่นพี่")
+        if int(email_Check.count) == 1:
+            messages.error(request,"เคยลงทะเบียนไปแล้ว ถ้า หากมั่นใจแล้วว่าถูกต้อง ติดต่อรุ่นพี่")
             return render(request,'login_emailmim.html')
         else: 
             user = User.objects.get(email__exact=str(email))
@@ -134,12 +135,13 @@ def page3(request):
 def page4(request):
     if request.method == 'POST':
         email = request.POST['email']
-        emailfind = User.objects.filter(email__exact=str(email))
-        User_Obj = User.objects.get(email__exact=str(email))
-        #print(emailfind.user_id)
-        email_Check = UserProfile.objects.get(user_id=User_Obj.id)
-        #print(email_Check.count)
-        #print(count)
+        try:
+            emailfind = User.objects.filter(email__exact=str(email))
+            User_Obj = User.objects.get(email__exact=str(email))
+            email_Check = UserProfile.objects.get(user_id=User_Obj.id)
+        except User.DoesNotExist:
+            messages.success(request,"อีเมลไม่มีในระบบ ไม่ได้ลงทะเบียนไว้ กรุณาติดต่อ admin")
+            return render(request,'login_emailmim.html',{"mes":True})
         
         if len(emailfind)==0 :
             messages.error(request,"กรอกอีเมลผิด ถ้า หากมั่นใจแล้วว่าถูกต้อง ติดต่อรุ่นพี่")
@@ -351,9 +353,8 @@ def appsend(request):
         except(EmptyPage,InvalidPage) :
             productperPage = paginator.page(paginator.num_pages)
 
-
-
-        contxt = {"oders":productperPage,"test":test,"likes":like_obj}
+        userobj = User.objects.all()
+        contxt = {"oders":productperPage,"test":test,"likes":like_obj,"User":userobj}
 
 
 
@@ -442,6 +443,7 @@ def confirmlicn(request):
         oders = OderCommand.objects.filter(idcpeto=idcpe)
         test = UserProfile.objects.all()
         like_obj = Like.objects.all()
+        userobj = User.objects.all()	
 
         paginator = Paginator(oders, 5)
             
@@ -459,10 +461,9 @@ def confirmlicn(request):
             context = {'object_UserProFile':object_UserProFile}
 
             messages.success(request,context,"helloworld")
-            return render(request,'confirmlicnew.html',{"oders":productperPage,"test":test,"likes":like_obj})
-        
+            return render(request,'confirmlicnew.html',{"oders":productperPage,"test":test,"likes":like_obj,"User":userobj})       
 
-    return render(request,'confirmlicnew.html',{"oders":productperPage,"test":test,"likes":like_obj})
+    return render(request,'confirmlicnew.html',{"oders":productperPage,"test":test,"likes":like_obj,"User":userobj})
 
 def confirmsend(request,oder_id):
     if request.user.is_authenticated:
@@ -589,16 +590,12 @@ def checklicense (request):
                             edu2a += 1
                         else:
                             edu2s += 1
-                    elif k.edu == "3":
+                    else:
                         if i.status == True:
                             edu3a += 1
                         else:
                             edu3s += 1
-                    else :
-                        if i.status == True:
-                            edu4a += 1
-                        else:
-                            edu4s += 1
+                    
 
 
             #จำนวนลายเซ็นต์ทั้งหมด
@@ -608,9 +605,9 @@ def checklicense (request):
             edu4 = edu4s+edu4a
 
             #จำนวนลายเซ็นต์ที่ยังขาด
-            sumedu1 = 106-edu1a
-            sumedu2 = 50 -edu2a
-            sumedu3 = 30 -edu3a
+            sumedu1 = 70-edu1a
+            sumedu2 = 40 -edu2a
+            sumedu3 = 20 -edu3a
             sumedu4 =  20- edu4
 
             if sumedu1 < 0:
@@ -736,7 +733,8 @@ def setting(request):
     form = UserProfileForm(instance=user)
     object_UserProFile = UserProfileForm(instance=user)
     if request.method == 'POST':
-        user.displayname = request.POST.get('display_name')
+        if len(request.POST.get('display_name')) != 0:
+       	   user.displayname = request.POST.get('display_name')
         if len(request.FILES)!=0:
             if request.FILES.get('image-profile',False):
                 user.profile_pic = request.FILES.get('image-profile')
