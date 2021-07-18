@@ -152,31 +152,41 @@ Swal.fire({
        
                  
 
+        
+         <!-- ---ปุ่ม LIKE-- -->
 
-         <!-----ปุ่ม LIKE---->
          <div class="like">
           <div class="btn-like">
             {% for tests in test %}
             {% if tests.user_id == item.idcpesend %}
             
             {%if item.idcpeto|is_like_filter:item.idcpesend %}
-
-            <div class="like-s">
-            <button onclick="window.location.href='like_d'+'/'+'{{item.idcpeto|get_oderid_like:item.idcpesend}}?next={{request.path}}' " ><i class="fas fa-heart"></i>  x {{likes|like_filter:item.idcpesend}}</button>
+            
+             <!-- <div class="like-s"> -->
+            <!--<button onclick="window.location.href='like_d'+'/'+'{{item.idcpeto|get_oderid_like:item.idcpesend}}?next={{request.path}}' " ><i class="fas fa-heart"></i>  x {{likes|like_filter:item.idcpesend}}</button> -->
 
             
-            </div>
-            {%else %}
-            <button onclick="window.location.href='like_s'+'/'+'{{item.idcpeto|get_oderid_like:item.idcpesend}}?next={{request.path}}'" ><i class="far fa-heart"></i>  x {{likes|like_filter:item.idcpesend}}</button>
-            {%endif %}
+            <!--</div> -->
+            <!-- { %else %} -->
+            <!--<button onclick="window.location.href='like_s'+'/'+'{{item.idcpeto|get_oderid_like:item.idcpesend}}?next={{request.path}}'" ><i class="far fa-heart"></i>  x {{likes|like_filter:item.idcpesend}}</button> -->
+            
+      
+
+            <div class="like-s">
+              <button ><i class="fas fa-heart"></i>  x {{likes|like_filter:item.idcpesend}}</button>
+              { %else %}
+            <button ><i class="far fa-heart"></i>  x {{likes|like_filter:item.idcpesend}}</button>
+                          
+              </div>
+           
+              {% endif %}
          
             {% endif %}
             {% endfor %}
           </div>
         </div>
 
-
-
+      
         {% if item.status == False %}
         <div class="btn-license">
           <button onclick="complete_license({{item.id}})"> เซ็นให้</button>
@@ -207,7 +217,6 @@ Swal.fire({
 
         {% endif %}
         {% endfor %}
-        <!===================>
 
         {% endif %}
       </figcaption>
@@ -217,10 +226,14 @@ Swal.fire({
 
     {% endfor %}
   </div>
+  <!-- 
   <div class="btn-license-all">
     
     <button onclick="complete_license_all({{ request.user.id }})"> <i class="fas fa-check-circle"></i> เซ็นให้ทุกคำขอ</button>
   </div>
+
+  //-->
+  
   <nav aria-label="Page navigation example">
     {% if oders.paginator.num_pages > 1 %}
     <ul class="pagination">

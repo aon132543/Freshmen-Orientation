@@ -800,4 +800,6 @@ def like_d(request,oder_id):
 
 def test(request):
     return render(request,'test.html')
-    
+#close
+def close(request):
+    return render(request,'close.html')

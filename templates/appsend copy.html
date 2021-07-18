@@ -56,19 +56,22 @@
                  {% endif %}
              {% endfor %}
           
-            </h2>
-            <p>
 
+            </h2>
+
+           <p>
               {% for tests in test %}
               {% if tests.user_id == item.idcpeto %}
-              {% for user in Users %}
-		{%if user.id = test.user_id %}
-		 	{{user.fistname}}
-                 {% endif %}
-             {% endfor %}
+                {% for user in User %}
+		 {% if user.id == tests.user_id %}
+		   {{user.first_name}} {{user.last_name}}
+		 {%endif%}
+		{% endfor %}
+                {% endif %}
+                {% endfor %}
 
-            <p>
 
+          </p>
 
 
             <p>
@@ -115,7 +118,7 @@
 
                 
             <!--ปุ่มลบ-->
-
+            
             <div class="d-button-del">
             {% if item.status == False %}
             <a href="#" onclick="complete_delete({{item.id}})" class="button-del">
